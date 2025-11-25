@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  cuentas:
+    build:
+      context: ./cuentas-service
+      dockerfile: Dockerfile
+    ports:
+      - "8013:8013"
+    env_file:
+      - ./cuentas-service/.env
+    volumes:
+      - ./cuentas-service/secrets:/app/secrets:ro
+    restart: unless-stopped
+    networks:
+      - micro-net
+      
+networks:
+  micro-net:
+    driver: bridge
